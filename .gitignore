@@ -12,7 +12,8 @@ __pycache__/
 # C extensions
 *.so
 .idea
-
+ mdblog/__pycache__/app.cpython-36.pyc
+ 
 # Distribution / packaging
 .Python
 build/
