@@ -5,6 +5,7 @@ from flask import redirect
 from flask import url_for
 from flask import session
 from flask import g
+from flask import flash
 
 import sqlite3
 import os
@@ -28,6 +29,7 @@ def view_about():
 @flask_app.route("/admin/")
 def view_admin():
     if "logged" not in session:
+        flash("You must be logged in", "alert-danger")
         return redirect(url_for("view_login"))
     return render_template("admin.jinja")
 
@@ -66,8 +68,10 @@ def login_user():
     if username == flask_app.config["USERNAME"] and \
             password == flask_app.config["PASSWORD"]:
         session["logged"] = True
+        flash("Login succesful" , "alert-success")
         return redirect(url_for("view_admin"))
     else:
+        flash("Your name or passwrd was incorrect")
         return redirect(url_for("view_login"))
 
 @flask_app.route("/logout/", methods=["POST"])
